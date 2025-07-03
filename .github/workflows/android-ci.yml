@@ -21,6 +21,10 @@ jobs:
 
       - name: Grant execute permission for gradlew
         run: chmod +x ./gradlew
+        
+      # THIS IS THE NEW LINE THAT FIXES THE ERROR
+      - name: Fix gradlew line endings
+        run: sed -i 's/\r$//' ./gradlew
 
       - name: Build with Gradle
         run: ./gradlew assembleDebug
