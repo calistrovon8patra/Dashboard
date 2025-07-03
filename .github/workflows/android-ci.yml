@@ -22,12 +22,16 @@ jobs:
       - name: Grant execute permission for gradlew
         run: chmod +x ./gradlew
         
-      # THIS IS THE NEW LINE THAT FIXES THE ERROR
-      - name: Fix gradlew line endings
-        run: sed -i 's/\r$//' ./gradlew
+      # THE DEFINITIVE FIX: Install and use dos2unix to fix line endings
+      - name: Fix gradlew script
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y dos2unix
+          dos2unix ./gradlew
 
+      # THE DEFINITIVE BUILD COMMAND: More specific to avoid errors
       - name: Build with Gradle
-        run: ./gradlew assembleDebug
+        run: ./gradlew :app:assembleDebug
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
