@@ -15,6 +15,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -156,7 +157,6 @@ fun TaskCard(task: Task, onCheckedChange: (Boolean) -> Unit, onPlayPause: () -> 
     val isChecked = task.status == TaskStatus.COMPLETED
     var displayedTime by remember { mutableStateOf(task.timeLoggedInMillis) }
 
-    // This effect makes the timer tick visually
     LaunchedEffect(key1 = task.timerIsRunning, key2 = task.timeLoggedInMillis) {
         if (task.timerIsRunning) {
             val resumeTime = System.currentTimeMillis()
@@ -191,7 +191,8 @@ fun TaskCard(task: Task, onCheckedChange: (Boolean) -> Unit, onPlayPause: () -> 
                 Column(Modifier.weight(1f)) {
                     Text(text = task.name, fontSize = 16.sp, fontWeight = FontWeight.SemiBold)
                     if (task.timerIsRunning || displayedTime > 0) {
-                        Text(text = formatTime(displayedTime), color = if (task.timerIsRunning) RoseFade.brush.colorStops.first().color else TextSecondary, fontSize = 14.sp)
+                        // THIS IS THE FIXED LINE
+                        Text(text = formatTime(displayedTime), color = if (task.timerIsRunning) Color(0xFFFFC0CB) else TextSecondary, fontSize = 14.sp)
                     } else {
                         Text(text = "Due today", fontSize = 12.sp, color = TextSecondary)
                     }
