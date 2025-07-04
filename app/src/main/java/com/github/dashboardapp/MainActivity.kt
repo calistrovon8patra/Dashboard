@@ -5,9 +5,9 @@ import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
-import com.github.dashboardapp.ui.home.HomeScreen
 import com.github.dashboardapp.ui.theme.DashboardTheme
 import dagger.hilt.android.AndroidEntryPoint
+
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -15,7 +15,8 @@ class MainActivity : ComponentActivity() {
         setContent {
             DashboardTheme {
                 Surface(modifier = Modifier.fillMaxSize()) {
-                    HomeScreen()
+                    // We now call our main navigation structure
+                    MainAppScaffold()
                 }
             }
         }
